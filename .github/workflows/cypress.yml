@@ -18,5 +18,5 @@ jobs:
         if: always()
         with:
           name: cypress-report
-          path: cypress/reports
+          path: cypress/reports/html
           retention-days: 30

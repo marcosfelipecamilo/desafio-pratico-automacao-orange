@@ -7,6 +7,5 @@ module.exports = defineConfig({
       require('cypress-mochawesome-reporter/plugin')(on); //Ao final de cada execução é gerado um relatorio visual
     },
     baseUrl: 'https://opensource-demo.orangehrmlive.com/web/index.php', //usei baseUrl para não repetir o link em todos os testes
-    video: true, //video do teste para evidências
-  },
+      },
 });
