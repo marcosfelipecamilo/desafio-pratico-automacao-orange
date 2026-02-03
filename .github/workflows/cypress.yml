@@ -1,12 +1,22 @@
 name: Cypress Tests 🚀
-on: [push, workflow_dispatch] # workflow_dispatch permite rodar manualmente
+on: [push, workflow_dispatch]
+
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 📂
         uses: actions/checkout@v4
+
       - name: Cypress Run 🧪
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
+
+      - name: Upload Report 📊
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cypress-report
+          path: cypress/reports
+          retention-days: 30
