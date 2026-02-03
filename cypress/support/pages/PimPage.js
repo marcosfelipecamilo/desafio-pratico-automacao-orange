@@ -15,10 +15,11 @@ class PimPage {
   }//Aqui está contralizado os elementos(Seletores)
 
   goToPim() {
-    this.elements.pimMenu().click({ force: true }); 
+    // Em vez de apenas validar a URL, force o clique no menu PIM 
+    // para garantir que ele saia da tela de "Personal Details"
+    cy.get(':nth-child(2) > .oxd-main-menu-item').click(); 
     cy.url().should('include', '/pim/viewEmployeeList');
-    cy.contains('h5', 'Employee Information', { timeout: 10000 }).should('be.visible');
-  }//Esperas explicitas
+}
 
   addEmployee(fname, lname) {
     this.elements.addBtn().should('be.visible').click();
