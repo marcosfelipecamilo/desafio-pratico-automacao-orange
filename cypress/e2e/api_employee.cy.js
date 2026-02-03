@@ -2,7 +2,7 @@ describe('API Testing - OrangeHRM', () => {
   it('Deve cadastrar um funcionário via POST (API) e validar na interface', () => {
     
     // 1. Login (Ajustado para evitar URL duplicada)
-    // Se a sua baseUrl já termina em index.php, use apenas '/auth/login'
+    // Se a baseUrl já termina em index.php, use apenas '/auth/login'
     cy.visit('/auth/login'); 
     
     cy.get('input[name="username"]').type('Admin');
