@@ -16,7 +16,7 @@ class PimPage {
 
   goToPim() {
     // Força o clique no menu lateral para garantir a navegação correta
-    cy.get(':nth-child(2) > .oxd-main-menu-item').click(); 
+    this.elements.pimMenu().should('be.visible').click(); 
     cy.url().should('include', '/pim/viewEmployeeList');
   }
 

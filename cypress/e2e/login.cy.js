@@ -8,7 +8,7 @@ import loginPage from '../support/pages/LoginPage'
 describe('Funcionalidade: Login e Logout', () => {
 
   beforeEach(() => {
-    loginPage.visit();
+    loginPage.visit('/web/index.php/auth/login');
   });
 
   it('Validar mensagem de campo requerido para User e Pass', () => {
@@ -36,7 +36,7 @@ describe('Funcionalidade: Login e Logout', () => {
     
     // Valida que entrou no Dashboard
     cy.url().should('include', '/dashboard/index');
-    cy.contains('h6', 'Dashboard').should('be.visible');
+    cy.contains('h6', 'Dashboard', {timeout: 10000}).should('be.visible');
   });
 
   it('Efetuar logout e validar retorno à tela de login', () => {

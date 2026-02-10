@@ -12,12 +12,12 @@ class LoginPage {
   }
 
   visit() {
-    cy.visit('/auth/login');
+    cy.visit('/web/index.php/auth/login');
   }
 
   login(user, pass) {
-    if (user) this.elements.usernameInput().type(user);
-    if (pass) this.elements.passwordInput().type(pass);
+    if (user) this.elements.usernameInput().should('be.visible').type(user);
+    if (pass) this.elements.passwordInput().should('be.visible').type(pass);
     this.elements.loginBtn().click();
   }
 

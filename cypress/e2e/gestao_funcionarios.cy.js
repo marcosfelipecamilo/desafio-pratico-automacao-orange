@@ -3,16 +3,22 @@ import pimPage from '../support/pages/PimPage'
 
 Cypress.on('uncaught:exception', (err, runnable) => {
   return false;
-});//Caso o site de algum erro interno ignore-o
+});
 
 describe('Fluxo de Gestão de Funcionários', () => {
-  // Variável para armazenar o timestamp e usá-lo em todos os "its"
-  const timestamp = new Date().getTime().toString().substring(9); //Adiciona um número na frente do nome para não repetição
+  const timestamp = new Date().getTime().toString().substring(9);
 
   beforeEach(() => {
-    // O teste precisa começar logado na tela PIM
+    // 1. Visita a página de login corrigida
     loginPage.visit(); 
+    
+    // 2. Realiza o login
     loginPage.login('Admin', 'admin123');
+    
+    // 3. Aguarda o Dashboard carregar (evita o erro no menu PIM)
+    cy.url().should('include', '/dashboard/index');
+    
+    // 4. Navega para o PIM
     pimPage.goToPim();
   });
 
@@ -23,7 +29,6 @@ describe('Fluxo de Gestão de Funcionários', () => {
         pimPage.addEmployee(uniqueFirstName, user.lastName);
         pimPage.goToPim(); 
       });
-      // Validação: Garante que o último cadastrado aparece na lista
       cy.contains(`${users[2].firstName}_${timestamp}`).should('be.visible');
     });
   });
@@ -39,7 +44,6 @@ describe('Fluxo de Gestão de Funcionários', () => {
         pimPage.deleteEmployee(nome);
       });
 
-      // Validação: O primeiro nome não deve mais existir
       cy.contains(`${users[0].firstName}_${timestamp}`).should('not.exist');
     });
   });
@@ -52,7 +56,6 @@ describe('Fluxo de Gestão de Funcionários', () => {
       
       pimPage.editEmployee(nomeOriginal, novoNome, novoNumero, 'Male');
 
-      // Validação final: Volta para a lista e verifica o novo nome
       pimPage.goToPim();
       cy.contains(novoNome).should('be.visible');
     });
